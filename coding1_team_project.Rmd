@@ -75,19 +75,40 @@ We have also calculated the correlation coefficient between the price of Coke an
 ## Price of Coke and Nutella
 ```{r, echo=FALSE, warning= FALSE, figures-side, fig.show="hold", out.width="50%"}
 
-ggplot(data=dfc)+
-        geom_histogram(aes(x=price_in_huf), color='black', fill ='#f8776c', bins = 6)+
-        labs(x='Price of Coke (HUF)',
-             y='Number of Observations',
-             title = 'Distribution of Price for Coke')+
-        theme_minimal()
 
-ggplot(data=dfn)+
-        geom_histogram(aes(x=price_in_huf), color='black', fill ='#00bec4', bins = 4)+
-        labs(x='Price of Nutella (HUF)',
-             y='Number of Observations',
-             title = 'Distribution of Price for Nutella')+
-        theme_minimal()
+  # price of coke
+  a <- mean( dfc$price_in_huf , na.rm = T )
+  ggplot(data=dfc)+
+  geom_histogram(aes(x=price_in_huf), fill ='navyblue',color= "black" ,binwidth = 20)+
+    labs(x='Price of Coke',
+         y='Frequency of Count ')+
+    ggtitle("Price Comparison")+
+    theme_solarized()+
+    theme(plot.title=element_text(size= 15,hjust=0.5))+
+    scale_x_continuous( limits = c( 200 , 400 ) )+
+  geom_segment( aes(x = mean( dfc$price_in_huf , na.rm = T ), y = 0, 
+                    xend = mean( dfc$price_in_huf , na.rm = T ) , yend = 10) , color = 'brown')+
+    annotate( "text" , x = mean( dfc$price_in_huf, na.rm = T ) + 20 , y = 9  , label = 'Mean' , color = 'brown')
+ 
+  
+  
+
+  # price of nutella
+  
+  b <- mean( dfn$price_in_huf , na.rm = T )
+  ggplot(data=dfn)+
+    geom_histogram(aes(x=price_in_huf), fill ='navyblue',color= "black" ,binwidth = 20)+
+    labs(x='Price of Nutella',
+         y='Frequency of Count ')+
+    ggtitle("Price Comparison")+
+    theme_solarized()+
+    theme(plot.title=element_text(size= 15,hjust=0.5))+
+    scale_x_continuous( limits = c( 1060 , 1450 ) )+
+    scale_y_continuous(limits = c(0,8.5))+
+    geom_segment( aes(x = mean( dfn$price_in_huf , na.rm = T ), y = 0, 
+                      xend = mean( dfn$price_in_huf , na.rm = T ) , yend = 8.5) , color = 'brown')+
+    annotate( "text" , x = mean( dfn$price_in_huf, na.rm = T ) + 32 , y = 8.5  , label = 'Mean' , color = 'brown')
+    
 ```
 
 We chose histogram over density plot, as we find histogram more of a straightforward interpretation of the distribution of the prices. We want to avoid a broken comb look by having too many bins. We think the numbers of bins we settled with portray the distribution quite well.
